@@ -1,3 +1,4 @@
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 
 void main() {
@@ -61,6 +62,13 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  Future<void> _callBackend() async {
+    var url = Uri.parse('http://20.24.112.100');
+    var response = await http.get(url);
+    print('Response status: ${response.statusCode}');
+    print('Response body: ${response.body}');
+  }
+
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -105,11 +113,32 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      floatingActionButton: Row(
+        children: [
+          FloatingActionButton(
+            onPressed: _incrementCounter,
+            tooltip: 'Increment',
+            child: const Icon(Icons.add),
+          ),
+          FloatingActionButton(
+            onPressed: () async {
+              var url = Uri.parse('http://ip/weatherforecast/cities');
+              var response = await http.read(url);
+              // print('Response status: ${response.statusCode}');
+              // print('Response body: ${response.body}');
+              print('Response: $response');
+            },
+            tooltip: 'Call API',
+            child: const Icon(Icons.rocket),
+          )
+        ],
+        mainAxisAlignment: MainAxisAlignment.end,
+      ),
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: _incrementCounter,
+      //   tooltip: 'Increment',
+      //   child: const Icon(Icons.add),
+      // ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
