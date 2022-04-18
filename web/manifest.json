@@ -1,6 +1,6 @@
 {
-    "name": "web_blog",
-    "short_name": "web_blog",
+    "name": "web-sobrian",
+    "short_name": "web-sobrian",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

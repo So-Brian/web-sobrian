@@ -1,4 +1,4 @@
-package com.example.web_blog
+package com.example.web-sobrian
 
 import io.flutter.embedding.android.FlutterActivity
 

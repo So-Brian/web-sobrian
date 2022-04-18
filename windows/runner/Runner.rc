@@ -90,12 +90,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "com.example" "\0"
-            VALUE "FileDescription", "web_blog" "\0"
+            VALUE "FileDescription", "web-sobrian" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "web_blog" "\0"
+            VALUE "InternalName", "web-sobrian" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2022 com.example. All rights reserved." "\0"
-            VALUE "OriginalFilename", "web_blog.exe" "\0"
-            VALUE "ProductName", "web_blog" "\0"
+            VALUE "OriginalFilename", "web-sobrian.exe" "\0"
+            VALUE "ProductName", "web-sobrian" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END
