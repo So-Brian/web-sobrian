@@ -50,6 +50,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  String _message = '';
 
   void _incrementCounter() {
     setState(() {
@@ -63,10 +64,11 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Future<void> _callBackend() async {
-    var url = Uri.parse('http://20.24.112.100');
+    var url = Uri.parse('http://20.24.112.100/weatherforecast/cities');
     var response = await http.get(url);
-    print('Response status: ${response.statusCode}');
-    print('Response body: ${response.body}');
+    setState(() {
+      _message = '$_counter ==== ${response.body}';
+    });
   }
 
   @override
@@ -110,6 +112,10 @@ class _MyHomePageState extends State<MyHomePage> {
               '$_counter',
               style: Theme.of(context).textTheme.headline4,
             ),
+            Text(
+              _message,
+              style: Theme.of(context).textTheme.bodyLarge,
+            )
           ],
         ),
       ),
@@ -121,16 +127,16 @@ class _MyHomePageState extends State<MyHomePage> {
             child: const Icon(Icons.add),
           ),
           FloatingActionButton(
-            onPressed: () async {
-              var url = Uri.parse('http://ip/weatherforecast/cities');
-              var response = await http.read(url);
-              // print('Response status: ${response.statusCode}');
-              // print('Response body: ${response.body}');
-              print('Response: $response');
-            },
+            onPressed: _callBackend,
             tooltip: 'Call API',
             child: const Icon(Icons.rocket),
-          )
+          ),
+          FloatingActionButton(onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const MyNextPage()),
+            );
+          })
         ],
         mainAxisAlignment: MainAxisAlignment.end,
       ),
@@ -139,6 +145,26 @@ class _MyHomePageState extends State<MyHomePage> {
       //   tooltip: 'Increment',
       //   child: const Icon(Icons.add),
       // ), // This trailing comma makes auto-formatting nicer for build methods.
+    );
+  }
+}
+
+class MyNextPage extends StatelessWidget {
+  const MyNextPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Next Page'),
+      ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          const Text('This is a second page.'),
+          const BackButton(),
+        ],
+      ),
     );
   }
 }
