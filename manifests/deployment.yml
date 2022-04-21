@@ -1,0 +1,19 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: "sobriancluster-b8d6"
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: "sobriancluster-b8d6"
+  template:
+    metadata:
+      labels:
+        app: "sobriancluster-b8d6"
+    spec:
+      containers:
+        - name: "sobriancluster-b8d6"
+          image: "sobrian.azurecr.io/sobriancluster"
+          ports:
+          - containerPort: 80
