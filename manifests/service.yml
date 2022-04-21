@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: Service
 metadata:
-    name: "sobriancluster-b8d6"
+    name: "service-web-sobrian"
     labels:
-        app: "sobriancluster-b8d6"
+        app: "web-sobrian"
 spec:
     type: LoadBalancer
     ports:
@@ -11,5 +11,9 @@ spec:
       targetPort: 80
       protocol: TCP
       name: http
+    - port: 443
+      targetPort: 80
+      protocol: TCP
+      name: https
     selector:
-        app: "sobriancluster-b8d6"
+        app: "web-sobrian"

@@ -1,19 +1,19 @@
 apiVersion : apps/v1
 kind: Deployment
 metadata:
-  name: "sobriancluster-b8d6"
+  name: "deployment-web-sobrian"
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
-      app: "sobriancluster-b8d6"
+      app: "web-sobrian"
   template:
     metadata:
       labels:
-        app: "sobriancluster-b8d6"
+        app: "web-sobrian"
     spec:
       containers:
-        - name: "sobriancluster-b8d6"
-          image: "sobrian.azurecr.io/sobriancluster"
+        - name: "web-sobrian"
+          image: "sobrian.azurecr.io/web-sobrian"
           ports:
           - containerPort: 80
