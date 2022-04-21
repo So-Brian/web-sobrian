@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 
@@ -64,11 +66,19 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Future<void> _callBackend() async {
-    var url = Uri.parse('http://20.24.112.100/weatherforecast/cities');
-    var response = await http.get(url);
-    setState(() {
-      _message = '$_counter ==== ${response.body}';
-    });
+    // var ip = String.fromEnvironment('APPLICATION_NAME');
+    try {
+      var url = Uri.parse(
+          'http://service-service-blog-golang/weatherforecast/cities');
+      var response = await http.get(url);
+      setState(() {
+        _message = '$_counter ==== ${response.body}';
+      });
+    } catch (e) {
+      setState(() {
+        _message = e.toString();
+      });
+    }
   }
 
   @override
