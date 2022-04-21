@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-sobrian-deployment
+  labels:
+    app: web-sobrian
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: web-sobrian
+  template:
+    metadata:
+      labels:
+        app: web-sobrian
+    spec:
+      containers:
+      - name: web-sobrian
+        image: sobrian.azurecr.io/web-sobrian:0.3.0
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: web-sobrian-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: web-sobrian
+  ports:
+  - name: http
+    port: 80
+    targetPort: 80
+    protocol: TCP
+  - name: https
+    port: 443
+    targetPort: 80
+    protocol: TCP
