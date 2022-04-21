@@ -68,8 +68,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Future<void> _callBackend() async {
     // var ip = String.fromEnvironment('APPLICATION_NAME');
     try {
-      var url = Uri.parse(
-          'http://service-service-blog-golang/weatherforecast/cities');
+      var url = Uri.parse('http://10.2.234.5/weatherforecast/cities');
       var response = await http.get(url);
       setState(() {
         _message = '$_counter ==== ${response.body}';
