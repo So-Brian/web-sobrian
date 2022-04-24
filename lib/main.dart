@@ -68,7 +68,8 @@ class _MyHomePageState extends State<MyHomePage> {
   Future<void> _callBackend() async {
     // var ip = String.fromEnvironment('APPLICATION_NAME');
     try {
-      var url = Uri.parse('http://20.239.1.134/weatherforecast/cities');
+      var url =
+          Uri.parse('https://sobrian.azure-api.net/weatherforecast/cities');
       var response = await http.get(url);
       setState(() {
         _message = '$_counter ==== ${response.body}';
