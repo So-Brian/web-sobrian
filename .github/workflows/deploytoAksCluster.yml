@@ -30,34 +30,39 @@ jobs:
           docker build "$GITHUB_WORKSPACE/" -f "Dockerfile" -t ${{env.REGISTRY_URL}}/${{env.APP_NAME}}:${{ env.VERSION }} --label dockerfile-path=Dockerfile
           docker push ${{env.REGISTRY_URL}}/${{env.APP_NAME}}:${{ env.VERSION }}
 
-      - uses: azure/k8s-set-context@v1
+      - uses: azure/webapps-deploy@v2
         with:
-          kubeconfig: ${{ secrets.aks_sobriancluster_kubeConfig }}
-        id: login
+          app-name: "sobrian"
+          images: ${{env.REGISTRY_URL}}/${{env.APP_NAME}}:${{ env.VERSION }}
 
-      - name: Create namespace
-        run: |
-          namespacePresent=`kubectl get namespace | grep default | wc -l`
-          if [ $namespacePresent -eq 0 ]
-          then
-              echo `kubectl create namespace default`
-          fi
+      # - uses: azure/k8s-set-context@v1
+      #   with:
+      #     kubeconfig: ${{ secrets.aks_sobriancluster_kubeConfig }}
+      #   id: login
 
-      - uses: azure/k8s-create-secret@v1
-        with:
-          namespace: default
-          container-registry-url: ${{env.REGISTRY_URL}}
-          container-registry-username: ${{ secrets.acr_sobrian_username }}
-          container-registry-password: ${{ secrets.acr_sobrian_password }}
-          secret-name: ${{env.SECRET}}
+      # - name: Create namespace
+      #   run: |
+      #     namespacePresent=`kubectl get namespace | grep default | wc -l`
+      #     if [ $namespacePresent -eq 0 ]
+      #     then
+      #         echo `kubectl create namespace default`
+      #     fi
 
-      - uses: azure/k8s-deploy@v1.2
-        with:
-          namespace: default
-          manifests: |
-            manifests/deployment.yml
-            manifests/service.yml
-          images: |
-            ${{env.REGISTRY_URL}}/${{env.APP_NAME}}:${{ env.VERSION }}
-          imagepullsecrets: |
-            ${{env.SECRET}}
+      # - uses: azure/k8s-create-secret@v1
+      #   with:
+      #     namespace: default
+      #     container-registry-url: ${{env.REGISTRY_URL}}
+      #     container-registry-username: ${{ secrets.acr_sobrian_username }}
+      #     container-registry-password: ${{ secrets.acr_sobrian_password }}
+      #     secret-name: ${{env.SECRET}}
+
+      # - uses: azure/k8s-deploy@v1.2
+      #   with:
+      #     namespace: default
+      #     manifests: |
+      #       manifests/deployment.yml
+      #       manifests/service.yml
+      #     images: |
+      #       ${{env.REGISTRY_URL}}/${{env.APP_NAME}}:${{ env.VERSION }}
+      #     imagepullsecrets: |
+      #       ${{env.SECRET}}
