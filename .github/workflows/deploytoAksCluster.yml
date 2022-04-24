@@ -30,6 +30,11 @@ jobs:
           docker build "$GITHUB_WORKSPACE/" -f "Dockerfile" -t ${{env.REGISTRY_URL}}/${{env.APP_NAME}}:${{ env.VERSION }} --label dockerfile-path=Dockerfile
           docker push ${{env.REGISTRY_URL}}/${{env.APP_NAME}}:${{ env.VERSION }}
 
+      - name: "Az CLI login"
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
       - uses: azure/webapps-deploy@v2
         with:
           app-name: "sobrian"
