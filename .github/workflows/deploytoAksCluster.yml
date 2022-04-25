@@ -21,7 +21,7 @@ jobs:
 
       - id: set-version
         run: |
-          echo "CURRENT_TAG" | cat current-tag >> $GITHUB_ENV
+          cat current-tag | sed 's!^!CURRENT_TAG=!' >> $GITHUB_ENV
 
       # Connect to Azure Container Registry (ACR)
       - uses: azure/docker-login@v1
