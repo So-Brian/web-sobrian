@@ -11,7 +11,7 @@ env:
   NAMESPACE: default
   SECRET: acr-secret
   APP_NAME: web-sobrian
-  VERSION: 0.5.1
+  VERSION: 0.5.2
 
 jobs:
   build-and-deploy:
