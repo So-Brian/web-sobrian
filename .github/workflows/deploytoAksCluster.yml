@@ -11,7 +11,6 @@ env:
   NAMESPACE: default
   SECRET: acr-secret
   APP_NAME: web-sobrian
-  VERSION: 0.5.2
 
 jobs:
   build-and-deploy:
@@ -21,7 +20,7 @@ jobs:
 
       - id: set-version
         run: |
-          cat current-tag | sed 's!^!CURRENT_TAG=!' >> $GITHUB_ENV
+          cat current-tag | sed 's!^!VERSION=!' >> $GITHUB_ENV
 
       # Connect to Azure Container Registry (ACR)
       - uses: azure/docker-login@v1
