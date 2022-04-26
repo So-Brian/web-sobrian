@@ -36,10 +36,11 @@ jobs:
           echo "Cloning $GITHUB_REPOSITORY"
           git clone $clone_link repo
           cd repo
+          git checkout $base
           git checkout $branch
 
           # Collect changed files
-          git diff --name-only $branch $base -- >> changed.txt
+          git diff --name-only $branch $base >> changed.txt
 
           # Collect tracked files
           IFS="," read -a tracked_files <<< $INPUT_TRACKED_FILES
