@@ -58,8 +58,3 @@ jobs:
           done
 
           exit $result
-
-      - name: Versioning Checker
-        uses: mwcodebase/versioning-checker@v2.2
-        with:
-          tracked_files: "current-tag"
