@@ -45,7 +45,7 @@ jobs:
           cat changed.txt
 
           # Collect tracked files
-          IFS="," read -a tracked_files <<< $INPUT_TRACKED_FILES
+          IFS="," read -a tracked_files <<< "current-tag"
 
           # Print any unchanged tracked files
           echo ""; echo "Checking for changes in ${tracked_files[@]}..."; echo ""
