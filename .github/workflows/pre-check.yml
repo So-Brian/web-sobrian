@@ -1,6 +1,6 @@
 on:
   pull_request:
-    types: [opened, reopened]
+    types: [opened, reopened, synchronize]
 
 # Environment variables available to all jobs and steps in this workflow
 env:
@@ -17,7 +17,44 @@ jobs:
     steps:
       - uses: actions/checkout@master
 
-      - name: Versioning Checker
-        uses: mwcodebase/versioning-checker@v2.2
-        with:
-          tracked_files: "current-tag"
+      - name: Dump GitHub context
+        id: github_context_step
+        run: echo '${{ toJSON(github) }}'
+
+      - name: check current-tag
+        id: check_current-tag
+        run: |
+          #!/bin/bash
+          result=0
+
+          # Collect git information
+          branch=${GITHUB_HEAD_REF}
+          base=${GITHUB_BASE_REF}
+          clone_link="https://github.com/$GITHUB_REPOSITORY.git"
+
+          # Clone repo
+          echo "Cloning $GITHUB_REPOSITORY"
+          git clone $clone_link repo
+          cd repo
+          git checkout $base
+          git checkout $branch
+
+          # Collect changed files
+          git diff --name-only $branch $base >> changed.txt
+
+          cat changed.txt
+
+          # Collect tracked files
+          IFS="," read -a tracked_files <<< "current-tag"
+
+          # Print any unchanged tracked files
+          echo ""; echo "Checking for changes in ${tracked_files[@]}..."; echo ""
+          for f in ${tracked_files[@]}; do
+            if ! grep -Fxq "$f" changed.txt
+            then
+              echo "$f has not been updated"
+              result=1
+            fi
+          done
+
+          exit $result
