@@ -7,4 +7,8 @@ class Blog {
   late String wechatUrl;
   late DateTime created;
   late DateTime modified;
+
+  Blog.fromJson(Map<String, dynamic> json)
+      : id = json['ID'],
+        title = json['Title'];
 }
