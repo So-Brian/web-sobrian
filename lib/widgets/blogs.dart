@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:web_sobrian/models/blog.dart';
@@ -11,6 +10,10 @@ class BlogsWidget extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() => _BlogsWidgetState();
+
+  void ToBlog(int index) {
+    log(blogs[index].title + 'clicked!');
+  }
 }
 
 class _BlogsWidgetState extends State<BlogsWidget> {
@@ -46,13 +49,21 @@ class _BlogsWidgetState extends State<BlogsWidget> {
       return Center(child: CircularProgressIndicator());
     } else {
       return Center(
-          child: ListView.builder(
+          child: ListView.separated(
         itemCount: widget.blogs.length,
-        itemBuilder: ((context, index) => Container(
-              height: 50,
-              color: Colors.amber,
-              child: Center(child: Text(widget.blogs[index].title)),
+        itemBuilder: ((context, index) => Listener(
+              child: Container(
+                height: 50,
+                color: Colors.amber,
+                child: Center(child: Text(widget.blogs[index].title)),
+              ),
+              onPointerUp: (event) => {widget.ToBlog(index)},
             )),
+        separatorBuilder: (context, index) => const Divider(
+          color: Colors.white,
+          thickness: 0,
+          indent: 0,
+        ),
       ));
     }
   }
