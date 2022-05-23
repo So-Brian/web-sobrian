@@ -79,7 +79,7 @@ class _HomePageState extends State<HomePage> {
           FloatingActionButton(
             onPressed: _callBackend,
             tooltip: 'Call API',
-            child: const Icon(Icons.rocket),
+            child: const Icon(Icons.network_check),
           ),
           FloatingActionButton(onPressed: () {
             Navigator.push(
