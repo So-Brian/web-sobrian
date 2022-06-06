@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.14)
-project(web-sobrian LANGUAGES CXX)
+project(sobrian LANGUAGES CXX)
 
-set(BINARY_NAME "web-sobrian")
+set(BINARY_NAME "sobrian")
 
 cmake_policy(SET CMP0063 NEW)
 

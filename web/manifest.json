@@ -1,6 +1,6 @@
 {
-    "name": "web-sobrian",
-    "short_name": "web-sobrian",
+    "name": "sobrian",
+    "short_name": "sobrian",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
