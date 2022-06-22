@@ -24,6 +24,7 @@ class _MainScreenState extends State<MainScreen> {
       appBar: AppBar(
         title: const Text('Home Page'),
         actions: [
+          Text('data'),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: InkWell(
@@ -37,24 +38,26 @@ class _MainScreenState extends State<MainScreen> {
             ),
           )
         ],
+        iconTheme: IconThemeData(color: Colors.red),
+      ),
+      drawer: Drawer(
+        elevation: 1,
+        child: ListView.builder(
+            itemCount: routeList.length,
+            itemBuilder: (context, i) {
+              return _navTile(routeList[i]);
+            }),
       ),
       body: Row(
         key: UniqueKey(),
         children: [
-          Drawer(
-            elevation: 1,
-            child: ListView.builder(
-                itemCount: routeList.length,
-                itemBuilder: (context, i) {
-                  return _navTile(routeList[i]);
-                }),
-          ),
           Expanded(
             child:
                 Center(child: RouteHandeler().getRouteWidget(widget.routeName)),
           ),
         ],
       ),
+      bottomNavigationBar: BottomAppBar(),
     );
   }
 
